@@ -95,7 +95,7 @@ body {
 
 .cards-container {
     height: 30vh;
-    display: flex;
+    display: flex !important;
     flex-direction: row;
     justify-content: space-around;
 }
