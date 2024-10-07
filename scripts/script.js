@@ -770,17 +770,17 @@ var startBonus = ['cat', 'book', 'dragon', 'monument', 'bird'];
 var roundN = 0;
 var openCardNumber = 0;
 
-        // Функция предварительной загрузки изображений
-        function preloadImages(imageArray, path) {
-            imageArray.forEach(function(image) {
-                var img = new Image();
-                img.src = path + image + '.png';
-            });
-        }
+// Функция предварительной загрузки изображений
+function preloadImages(imageArray, path) {
+    imageArray.forEach(function (image) {
+        var img = new Image();
+        img.src = path + image + '.png';
+    });
+}
 
-        // Предварительно загружаем изображения бонусов
-        preloadImages(startBonus, 'img/');
-        preloadImages(deck, 'img/');
+// Предварительно загружаем изображения бонусов
+preloadImages(startBonus, 'img/');
+preloadImages(deck, 'img/');
 
 
 function start() {
@@ -926,14 +926,12 @@ function NextRound() {
     RoundNumber();
     countDeck();
     deck = shuffleArray(deck);
-    console.log(deck);
     if (roundN > 1) {
         toggleVisibility('.deck');
         toggleVisibility('.open-cards-container');
         toggleVisibility('.button-container.next-round');
     }
 }
-
 
 function Next() {
     playSound(clickSound);
@@ -961,7 +959,6 @@ function OpenNextCards() {
         openPopup('next');
     } else {
         openCardNumber += 2;
-        console.log(openCardNumber);
         bonusVilage.style.display = 'flex';
         deckCards.style.display = 'flex';
         openCard1.src = 'img/' + deck[openCardNumber - 2] + '.png';
@@ -1000,7 +997,6 @@ function changeBackgroundColor() {
 
     // Установка цвета фона
     countDeck.style.backgroundColor = 'rgb(' + redComponent + ', ' + greenComponent + ', ' + blueComponent + ')';
-    console.log(countDeck.style.backgroundColor);
 }
 
 function toggleBonus(element) {
@@ -1022,7 +1018,6 @@ function toggleBonus(element) {
     var dopGalochka = dopBonus.querySelector('.galochka');
     dopGalochka.style.display = 'none';
 }
-
 
 // Функция для отрисовки страницы по номеру
 function renderPage(pageNumber) {
@@ -1047,7 +1042,6 @@ function buildPage(pageData, container) {
         if (pageData.content) {
             buildElements(pageData.content, pageElement);
         }
-
         container.appendChild(pageElement);
     }
 }
@@ -1119,19 +1113,8 @@ function buildElement(elementData, container) {
                 return;
         }
     }
-
     container.appendChild(element);
 }
-
-
-
-
-
-
-
-
-
-
 
 // Функция для воспроизведения звука
 function playSound(sound) {
@@ -1153,8 +1136,6 @@ function exit() {
 }
 
 function openPopup(page) {
-
-
     var textPop1 = document.getElementById("first");
     var textPop2 = document.getElementById("second");
     var popupBut1 = document.getElementById("button1");
@@ -1187,8 +1168,6 @@ function openPopup(page) {
     } else {
         document.getElementById('overlay').style.display = 'none';
     }
-
-
 }
 
 function closePopup() {
@@ -1208,9 +1187,9 @@ function performAction(buttonId) {
             NextRound();
         } else {
             reloadPage();
-        } 
+        }
     } else if (buttonId === 2) {
-        if (buttonText.includes("NO")){
+        if (buttonText.includes("NO")) {
             toggleVisibility('.deck');
             toggleVisibility('.button-container.next-round');
             toggleVisibility('.big-bonus-container');
@@ -1218,7 +1197,6 @@ function performAction(buttonId) {
     }
     closePopup();
 }
-
 
 // Новая игра
 function newGame() {
