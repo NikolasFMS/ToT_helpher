@@ -770,6 +770,18 @@ var startBonus = ['cat', 'book', 'dragon', 'monument', 'bird'];
 var roundN = 0;
 var openCardNumber = 0;
 
+        // Функция предварительной загрузки изображений
+        function preloadImages(imageArray, path) {
+            imageArray.forEach(function(image) {
+                var img = new Image();
+                img.src = path + image + '.png';
+            });
+        }
+
+        // Предварительно загружаем изображения бонусов
+        preloadImages(startBonus, 'img/');
+        preloadImages(deck, 'img/');
+
 
 function start() {
     pageNumber++;
