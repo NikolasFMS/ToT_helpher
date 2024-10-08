@@ -772,6 +772,9 @@ var openCardNumber = 0;
         var imagesLoaded = 0;  // Счётчик загруженных изображений
         var totalImages = deck.length + startBonus.length;  // Общее количество изображений
 
+var minDisplayTime = 700; // Минимальное время показа прелоадера (700 мс)
+        var loadStartTime = Date.now();  // Время начала загрузки
+
         // Функция предварительной загрузки изображений
         function preloadImages(imageArray, path) {
             imageArray.forEach(function (image) {
@@ -795,16 +798,19 @@ var openCardNumber = 0;
         // Функция для проверки, все ли изображения загружены
         function checkAllImagesLoaded() {
             if (imagesLoaded >= totalImages) {
-                // Убираем прелоадер только после загрузки всех изображений
-                document.getElementById("preloader_malc").style.display = "none";
+                var timeElapsed = Date.now() - loadStartTime;
+                var remainingTime = Math.max(0, minDisplayTime - timeElapsed);
+
+                // Ждём оставшееся время, если загрузка прошла быстрее 700 мс
+                setTimeout(function() {
+                    document.getElementById("preloader_malc").style.display = "none";
+                }, remainingTime);
             }
         }
 
         // Предварительно загружаем изображения бонусов и карт
         preloadImages(startBonus, 'img/');
         preloadImages(deck, 'img/');
-
-
 
 
 // Функция предварительной загрузки изображений
