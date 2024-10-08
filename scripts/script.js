@@ -769,18 +769,55 @@ var deck = ['water', 'water', 'water', 'water', 'forest', 'forest', 'forest', 'f
 var startBonus = ['cat', 'book', 'dragon', 'monument', 'bird'];
 var roundN = 0;
 var openCardNumber = 0;
+        var imagesLoaded = 0;  // Счётчик загруженных изображений
+        var totalImages = deck.length + startBonus.length;  // Общее количество изображений
+
+        // Функция предварительной загрузки изображений
+        function preloadImages(imageArray, path) {
+            imageArray.forEach(function (image) {
+                var img = new Image();
+                img.src = path + image + '.png';
+
+                // Отслеживание загрузки каждого изображения
+                img.onload = function () {
+                    imagesLoaded++;
+                    checkAllImagesLoaded();
+                };
+
+                // Отслеживание ошибок загрузки изображений
+                img.onerror = function () {
+                    imagesLoaded++;
+                    checkAllImagesLoaded(); // Считаем даже ошибочные загрузки, чтобы продолжить
+                };
+            });
+        }
+
+        // Функция для проверки, все ли изображения загружены
+        function checkAllImagesLoaded() {
+            if (imagesLoaded >= totalImages) {
+                // Убираем прелоадер только после загрузки всех изображений
+                document.getElementById("preloader_malc").style.display = "none";
+            }
+        }
+
+        // Предварительно загружаем изображения бонусов и карт
+        preloadImages(startBonus, 'img/');
+        preloadImages(deck, 'img/');
+
+
+
 
 // Функция предварительной загрузки изображений
-function preloadImages(imageArray, path) {
-    imageArray.forEach(function (image) {
-        var img = new Image();
-        img.src = path + image + '.png';
-    });
-}
+//function preloadImages(imageArray, path) {
+//    imageArray.forEach(function (image) {
+//        var img = new Image();
+ //       img.src = path + image + '.png';
+//    });
+//}
 
 // Предварительно загружаем изображения бонусов
-preloadImages(startBonus, 'img/');
-preloadImages(deck, 'img/');
+//preloadImages(startBonus, 'img/');
+//preloadImages(deck, 'img/');
 
 
 function start() {
