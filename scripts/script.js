@@ -938,41 +938,78 @@ function Next() {
     OpenNextCards();
 }
 
-function OpenNextCards() {
-
-    var openCards = document.getElementById('open-cards')
-    var openCard1 = document.querySelector('.open-card.n1'); // Получаем первый элемент с классом open-card и n1
-    var openCard2 = document.querySelector('.open-card.n2'); // Получаем первый элемент с классом open-card и n2
-    var lastCards = document.querySelectorAll('.last-cards-container');
-    var lastCard1 = document.querySelector('.last-card.n1');
-    var lastCard2 = document.querySelector('.last-card.n2');
-    var deckCards = document.querySelector('.deck');
-    var deckCards = document.querySelector('.button-container.next-round');
-    var bonusVilage = document.querySelector('.big-bonus-container');
-
-    if (openCardNumber >= 26) {
-        toggleVisibility('.deck');
-        toggleVisibility('.button-container.next-round');
-        lastCards[0].style.display = 'none';
-        lastCards[1].style.display = 'none';
-        toggleVisibility('.big-bonus-container');
-        openPopup('next');
-    } else {
-        openCardNumber += 2;
-        bonusVilage.style.display = 'flex';
-        deckCards.style.display = 'flex';
-        openCard1.src = 'img/' + deck[openCardNumber - 2] + '.png';
-        openCard2.src = 'img/' + deck[openCardNumber - 1] + '.png';
-        openCards.style.display = 'flex';
-        if (openCardNumber > 2) {
-            lastCards[0].style.display = 'flex';
-            lastCards[1].style.display = 'flex';
-            lastCard1.src = 'img/' + deck[openCardNumber - 4] + '.png';
-            lastCard2.src = 'img/' + deck[openCardNumber - 3] + '.png';
-        }
-        countDeck();
+<style>
+    /* Стиль для полупрозрачности */
+    .transparent {
+        opacity: 0.5;
+        transition: opacity 0.5s ease-in-out;
     }
-}
+
+    /* Стиль для нормальной непрозрачности */
+    .opaque {
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    function OpenNextCards() {
+        var openCards = document.getElementById('open-cards');
+        var openCard1 = document.querySelector('.open-card.n1');
+        var openCard2 = document.querySelector('.open-card.n2');
+        var lastCards = document.querySelectorAll('.last-cards-container');
+        var lastCard1 = document.querySelector('.last-card.n1');
+        var lastCard2 = document.querySelector('.last-card.n2');
+        var deckCards = document.querySelector('.button-container.next-round');
+        var bonusVilage = document.querySelector('.big-bonus-container');
+
+        // Делаем объекты полупрозрачными перед загрузкой изображений
+        openCards.classList.add('transparent');
+        lastCards.forEach(function(card) {
+            card.classList.add('transparent');
+        });
+
+        // Проверка количества открытых карт
+        if (openCardNumber >= 26) {
+            toggleVisibility('.deck');
+            toggleVisibility('.button-container.next-round');
+            lastCards[0].style.display = 'none';
+            lastCards[1].style.display = 'none';
+            toggleVisibility('.big-bonus-container');
+            openPopup('next');
+        } else {
+            openCardNumber += 2;
+            bonusVilage.style.display = 'flex';
+            deckCards.style.display = 'flex';
+
+            // Задаем новые источники для карт
+            loadImage(openCard1, 'img/' + deck[openCardNumber - 2] + '.png', openCards);
+            loadImage(openCard2, 'img/' + deck[openCardNumber - 1] + '.png', openCards);
+
+            if (openCardNumber > 2) {
+                lastCards[0].style.display = 'flex';
+                lastCards[1].style.display = 'flex';
+                loadImage(lastCard1, 'img/' + deck[openCardNumber - 4] + '.png', lastCards[0]);
+                loadImage(lastCard2, 'img/' + deck[openCardNumber - 3] + '.png', lastCards[1]);
+            }
+
+            countDeck();
+        }
+    }
+
+    // Функция для загрузки изображений и изменения прозрачности
+    function loadImage(imageElement, src, parentElement) {
+        imageElement.src = src;
+        
+        // Убираем полупрозрачность, когда изображение загружается
+        imageElement.onload = function() {
+            parentElement.classList.remove('transparent');
+            parentElement.classList.add('opaque');
+        };
+
+        // Временно делаем элемент полупрозрачным
+        parentElement.classList.add('transparent');
+    }
+
+
 
 function countDeck() {
     var countCards = document.querySelector('.countCards');
