@@ -938,18 +938,7 @@ function Next() {
     OpenNextCards();
 }
 
-<style>
-    /* Стиль для полупрозрачности */
-    .transparent {
-        opacity: 0.5;
-        transition: opacity 0.5s ease-in-out;
-    }
 
-    /* Стиль для нормальной непрозрачности */
-    .opaque {
-        opacity: 1;
-        transition: opacity 0.5s ease-in-out;
-    }
 
    function OpenNextCards() {
 
