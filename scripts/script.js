@@ -772,7 +772,7 @@ var openCardNumber = 0;
 var imagesLoaded = 0;  // Счётчик загруженных изображений
 var totalImages = deck.length + startBonus.length;  // Общее количество изображений
 
-var minDisplayTime = 7000000; // Минимальное время показа прелоадера (700 мс)
+var minDisplayTime = 800; // Минимальное время показа прелоадера (700 мс)
 var loadStartTime = Date.now();  // Время начала загрузки
 
 // Функция обновления прогресс-бара
