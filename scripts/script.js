@@ -775,65 +775,42 @@ var totalImages = deck.length + startBonus.length;  // Общее количес
 var minDisplayTime = 800; // Минимальное время показа прелоадера (700 мс)
 var loadStartTime = Date.now();  // Время начала загрузки
 
-// Функция обновления прогресс-бара
-function updateProgressBar() {
-    var progressBar = document.getElementById('progress-bar');
-    var progressPercentage = (imagesLoaded / totalImages) * 100;
-    progressBar.style.width = progressPercentage + '%';
-}
-
 // Функция предварительной загрузки изображений
-function preloadImages(imageArray, path) {
-    imageArray.forEach(function (image) {
-        var img = new Image();
-        img.src = path + image + '.png';
+        function preloadImages(imageArray, path) {
+            imageArray.forEach(function (image) {
+                var img = new Image();
+                img.src = path + image + '.png';
 
-        // Отслеживание загрузки каждого изображения
-        img.onload = function () {
-            imagesLoaded++;
-            updateProgressBar();
-            checkAllImagesLoaded();
-        };
+                // Отслеживание загрузки каждого изображения
+                img.onload = function () {
+                    imagesLoaded++;
+                    checkAllImagesLoaded();
+                };
 
-        // Отслеживание ошибок загрузки изображений
-        img.onerror = function () {
-            imagesLoaded++;
-            updateProgressBar();
-            checkAllImagesLoaded(); // Считаем даже ошибочные загрузки, чтобы продолжить
-        };
-    });
-}
+                // Отслеживание ошибок загрузки изображений
+                img.onerror = function () {
+                    imagesLoaded++;
+                    checkAllImagesLoaded(); // Считаем даже ошибочные загрузки, чтобы продолжить
+                };
+            });
+        }
 
-// Функция для проверки, все ли изображения загружены
-function checkAllImagesLoaded() {
-    if (imagesLoaded >= totalImages) {
-        var timeElapsed = Date.now() - loadStartTime;
-        var remainingTime = Math.max(0, minDisplayTime - timeElapsed);
+        // Функция для проверки, все ли изображения загружены
+        function checkAllImagesLoaded() {
+            if (imagesLoaded >= totalImages) {
+                var timeElapsed = Date.now() - loadStartTime;
+                var remainingTime = Math.max(0, minDisplayTime - timeElapsed);
 
-        // Ждём оставшееся время, если загрузка прошла быстрее 700 мс
-        setTimeout(function () {
-            document.getElementById("preloader_malc").style.display = "none";
-        }, remainingTime);
-    }
-}
+                // Ждём оставшееся время, если загрузка прошла быстрее 700 мс
+                setTimeout(function() {
+                    document.getElementById("preloader_malc").style.display = "none";
+                }, remainingTime);
+            }
+        }
 
-// Предварительно загружаем изображения бонусов и карт
-preloadImages(startBonus, 'img/');
-preloadImages(deck, 'img/');
-
-
-// Функция предварительной загрузки изображений
-//function preloadImages(imageArray, path) {
-//    imageArray.forEach(function (image) {
-//        var img = new Image();
-//       img.src = path + image + '.png';
-//    });
-//}
-
-// Предварительно загружаем изображения бонусов
-//preloadImages(startBonus, 'img/');
-//preloadImages(deck, 'img/');
-
+        // Предварительно загружаем изображения бонусов и карт
+        preloadImages(startBonus, 'img/');
+        preloadImages(deck, 'img/');
 
 function start() {
     pageNumber++;
