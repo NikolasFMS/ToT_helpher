@@ -769,55 +769,64 @@ var deck = ['water', 'water', 'water', 'water', 'forest', 'forest', 'forest', 'f
 var startBonus = ['cat', 'book', 'dragon', 'monument', 'bird'];
 var roundN = 0;
 var openCardNumber = 0;
-        var imagesLoaded = 0;  // Счётчик загруженных изображений
-        var totalImages = deck.length + startBonus.length;  // Общее количество изображений
+var imagesLoaded = 0;  // Счётчик загруженных изображений
+var totalImages = deck.length + startBonus.length;  // Общее количество изображений
 
 var minDisplayTime = 700; // Минимальное время показа прелоадера (700 мс)
-        var loadStartTime = Date.now();  // Время начала загрузки
+var loadStartTime = Date.now();  // Время начала загрузки
 
-        // Функция предварительной загрузки изображений
-        function preloadImages(imageArray, path) {
-            imageArray.forEach(function (image) {
-                var img = new Image();
-                img.src = path + image + '.png';
+// Функция обновления прогресс-бара
+function updateProgressBar() {
+    var progressBar = document.getElementById('progress-bar');
+    var progressPercentage = (imagesLoaded / totalImages) * 100;
+    progressBar.style.width = progressPercentage + '%';
+}
 
-                // Отслеживание загрузки каждого изображения
-                img.onload = function () {
-                    imagesLoaded++;
-                    checkAllImagesLoaded();
-                };
+// Функция предварительной загрузки изображений
+function preloadImages(imageArray, path) {
+    imageArray.forEach(function (image) {
+        var img = new Image();
+        img.src = path + image + '.png';
 
-                // Отслеживание ошибок загрузки изображений
-                img.onerror = function () {
-                    imagesLoaded++;
-                    checkAllImagesLoaded(); // Считаем даже ошибочные загрузки, чтобы продолжить
-                };
-            });
-        }
+        // Отслеживание загрузки каждого изображения
+        img.onload = function () {
+            imagesLoaded++;
+            updateProgressBar();
+            checkAllImagesLoaded();
+        };
 
-        // Функция для проверки, все ли изображения загружены
-        function checkAllImagesLoaded() {
-            if (imagesLoaded >= totalImages) {
-                var timeElapsed = Date.now() - loadStartTime;
-                var remainingTime = Math.max(0, minDisplayTime - timeElapsed);
+        // Отслеживание ошибок загрузки изображений
+        img.onerror = function () {
+            imagesLoaded++;
+            updateProgressBar();
+            checkAllImagesLoaded(); // Считаем даже ошибочные загрузки, чтобы продолжить
+        };
+    });
+}
 
-                // Ждём оставшееся время, если загрузка прошла быстрее 700 мс
-                setTimeout(function() {
-                    document.getElementById("preloader_malc").style.display = "none";
-                }, remainingTime);
-            }
-        }
+// Функция для проверки, все ли изображения загружены
+function checkAllImagesLoaded() {
+    if (imagesLoaded >= totalImages) {
+        var timeElapsed = Date.now() - loadStartTime;
+        var remainingTime = Math.max(0, minDisplayTime - timeElapsed);
 
-        // Предварительно загружаем изображения бонусов и карт
-        preloadImages(startBonus, 'img/');
-        preloadImages(deck, 'img/');
+        // Ждём оставшееся время, если загрузка прошла быстрее 700 мс
+        setTimeout(function () {
+            document.getElementById("preloader_malc").style.display = "none";
+        }, remainingTime);
+    }
+}
+
+// Предварительно загружаем изображения бонусов и карт
+preloadImages(startBonus, 'img/');
+preloadImages(deck, 'img/');
 
 
 // Функция предварительной загрузки изображений
 //function preloadImages(imageArray, path) {
 //    imageArray.forEach(function (image) {
 //        var img = new Image();
- //       img.src = path + image + '.png';
+//       img.src = path + image + '.png';
 //    });
 //}
 
@@ -983,7 +992,7 @@ function Next() {
 
 
 
-   function OpenNextCards() {
+function OpenNextCards() {
 
     var openCards = document.getElementById('open-cards')
     var openCard1 = document.querySelector('.open-card.n1'); // Получаем первый элемент с классом open-card и n1
@@ -994,7 +1003,7 @@ function Next() {
     var deckCards = document.querySelector('.deck');
     var deckCards = document.querySelector('.button-container.next-round');
     var bonusVilage = document.querySelector('.big-bonus-container');
-        // Проверка количества открытых карт
+    // Проверка количества открытых карт
     if (openCardNumber >= 26) {
         toggleVisibility('.deck');
         toggleVisibility('.button-container.next-round');
@@ -1017,7 +1026,7 @@ function Next() {
         }
         countDeck();
     }
-} 
+}
 
 
 
