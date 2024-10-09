@@ -941,7 +941,7 @@ function modifyElements(setUp) {
             imgBonusN2Element.remove();
         }
     }
-    if (mapSetting === 0) {
+    if (setUp === 0) {
         var dopBonuses = document.querySelectorAll('.bonus.dop');
         dopBonuses.forEach(function (bonus) {
             bonus.style.display = 'none';
