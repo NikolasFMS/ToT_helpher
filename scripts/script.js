@@ -775,13 +775,6 @@ var totalImages = deck.length + startBonus.length;  // Общее количес
 var minDisplayTime = 800; // Минимальное время показа прелоадера (800 мс)
 var loadStartTime = Date.now();  // Время начала загрузки
 
-// Функция обновления прогресс-бара
-function updateProgressBar() {
-    var progressBar = document.getElementById('progress-bar');
-    var progressPercentage = (imagesLoaded / totalImages) * 100;
-    progressBar.style.width = progressPercentage + '%';
-}
-
 // Функция предварительной загрузки изображений
 function preloadImages(imageArray, path) {
     imageArray.forEach(function (image) {
@@ -791,14 +784,12 @@ function preloadImages(imageArray, path) {
         // Отслеживание загрузки каждого изображения
         img.onload = function () {
             imagesLoaded++;
-            updateProgressBar();
             checkAllImagesLoaded();
         };
 
         // Отслеживание ошибок загрузки изображений
         img.onerror = function () {
             imagesLoaded++;
-            updateProgressBar();
             checkAllImagesLoaded(); // Считаем даже ошибочные загрузки, чтобы продолжить
         };
     });
@@ -810,7 +801,7 @@ function checkAllImagesLoaded() {
         var timeElapsed = Date.now() - loadStartTime;
         var remainingTime = Math.max(0, minDisplayTime - timeElapsed);
 
-        // Ждём оставшееся время, если загрузка прошла быстрее 800 мс
+        // Ждём оставшееся время, если загрузка прошла быстрее 700 мс
         setTimeout(function () {
             document.getElementById("preloader_malc").style.display = "none";
         }, remainingTime);
@@ -977,7 +968,6 @@ function Next() {
 }
 
 function OpenNextCards() {
-
     var openCards = document.getElementById('open-cards')
     var openCard1 = document.querySelector('.open-card.n1'); // Получаем первый элемент с классом open-card и n1
     var openCard2 = document.querySelector('.open-card.n2'); // Получаем первый элемент с классом open-card и n2
