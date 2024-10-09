@@ -130,22 +130,9 @@ body {
     width: 55vh;
 }
 
-@keyframes flipCard {
-  0% {
-    transform: scale(0) rotateY(0deg);
-  }
-  50% {
-    transform: scale(1.1) rotateY(90deg);
-  }
-  100% {
-    transform: scale(1) rotateY(0deg);
-  }
-}
-
 .open-card {
     height: 27vh;
     width: 16vh;
-    animation: flipCard 0.8s ease-in-out;
 }
 
 .last-card {
@@ -201,7 +188,6 @@ body {
     flex-direction: column;
     margin-top: 2.5vh;
 }
-
 
 .count-deck {
     background-color: #99bccc;
@@ -392,7 +378,6 @@ body {
     background-color: #6fa1b3;
 }
 
-
 #overlay {
     z-index: 9999;
     display: none;
@@ -434,37 +419,3 @@ body {
 .action-button:active {
     color: #094453;
 }
-
-@keyframes buttonClick {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-button {
-  animation: buttonClick 0.3s ease-in-out;
-}
-
-
-@keyframes bonusPulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.bonus {
-  animation: bonusPulse 0.6s ease-in-out;
-}
-
