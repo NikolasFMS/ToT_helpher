@@ -26,6 +26,8 @@ body {
     max-width: 530px;
 }
 
+
+
 .content {
     width: 100%;
     height: 100%;
@@ -43,11 +45,18 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #024253
+    
 }
 
 .page.n3 {
     margin-top: -10vh;
+}
+
+/* Адаптация для телефонов */
+@media (max-width: 900px) {
+ .page {
+ background-color: #024253;
+ }
 }
 
 .img-container.map {
