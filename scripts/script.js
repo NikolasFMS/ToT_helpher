@@ -744,11 +744,12 @@ var ui = [
     }
 ]
 
-var clickSound = new Audio('audio/click.mp3');
+var clickSound = new Audio('audio/click.mp3'); // Создание звука клика для использования в игре
 
-var pageNumber = 1;
-var mapSetting = 0;
-var mapN = 0;
+var pageNumber = 1; // Текущий номер страницы
+var mapSetting = 0; // Настройки карты игры маленькая/большая
+var mapN = 0; // Номер показанной  открытой карты деревень
+// Названия деревень для отображения на экране
 var mapsName = [
     ['A', 'C', 'B', 'D', 'C', 'D', 'E', 'B', 'A', 'E'],
     ['B', 'E', 'D', 'C', 'B', 'A', 'D', 'E', 'C', 'A'],
@@ -765,44 +766,48 @@ var mapsName = [
     ['B', 'A', 'C', 'B', 'D', 'C', 'E', 'A', 'E', 'D']
 ];
 var setUp = 0;
+// Колода карт для игры
 var deck = ['water', 'water', 'water', 'water', 'forest', 'forest', 'forest', 'forest', 'forest', 'forest', 'forest', 'mountan', 'mountan', 'mountan', 'mountan', 'mountan', 'mountan', 'desert', 'desert', 'desert', 'desert', 'desert', 'desert', 'desert', 'desert', 'joker', 'joker']
-var startBonus = ['cat', 'book', 'dragon', 'monument', 'bird'];
-var roundN = 0;
-var openCardNumber = 0;
+var startBonus = ['cat', 'book', 'dragon', 'monument', 'bird']; // Стартовые бонусы для игроков
+var roundN = 0; // Номер текущего раунда
+var openCardNumber = 0; // Количество открытых карт
 var imagesLoaded = 0;  // Счётчик загруженных изображений
-var totalImages = deck.length + startBonus.length;  // Общее количество изображений
-
-var minDisplayTime = 800; // Минимальное время показа прелоадера (800 мс)
-var loadStartTime = Date.now();  // Время начала загрузки
+var totalImages = deck.length + startBonus.length;  // Общее количество изображений для загрузки (колода + бонусы)
+var minDisplayTime = 800; // Минимальное время отображения прелоадера (в миллисекундах)
+var loadStartTime = Date.now();  // Время начала загрузки (используется для расчета задержки)
 
 // Функция предварительной загрузки изображений
 function preloadImages(imageArray, path) {
+        // Перебираем каждый элемент массива изображений
     imageArray.forEach(function (image) {
         var img = new Image();
-        img.src = path + image + '.png';
+        img.src = path + image + '.png'; // Указываем путь к изображению
 
-        // Отслеживание загрузки каждого изображения
+        // Увеличиваем счётчик загруженных изображений при успешной загрузке
         img.onload = function () {
             imagesLoaded++;
             checkAllImagesLoaded();
         };
 
-        // Отслеживание ошибок загрузки изображений
+        // Если произошла ошибка при загрузке изображения, также увеличиваем счётчик
         img.onerror = function () {
             imagesLoaded++;
             checkAllImagesLoaded(); // Считаем даже ошибочные загрузки, чтобы продолжить
         };
     });
+        playSound(clickSound);     // Воспроизведение звука клика при старте загрузки
 }
 
 // Функция для проверки, все ли изображения загружены
 function checkAllImagesLoaded() {
     if (imagesLoaded >= totalImages) {
+                // Вычисляем, сколько времени прошло с начала загрузки
         var timeElapsed = Date.now() - loadStartTime;
         var remainingTime = Math.max(0, minDisplayTime - timeElapsed);
 
-        // Ждём оставшееся время, если загрузка прошла быстрее 700 мс
+        // Ожидаем, если загрузка прошла быстрее минимального времени
         setTimeout(function () {
+           // Прячем экран загрузки
             document.getElementById("preloader_malc").style.display = "none";
         }, remainingTime);
     }
@@ -812,42 +817,48 @@ function checkAllImagesLoaded() {
 preloadImages(startBonus, 'img/');
 preloadImages(deck, 'img/');
 
+// Функция для начала игры (увеличивает номер страницы и рендерит её)
 function start() {
     pageNumber++;
     renderPage(pageNumber);
 }
 
+// Установка карты деревень для игры
 function map(size) {
-    mapSetting = size;
+    mapSetting = size; // Установка размера карты
     pageNumber++;
-    mapN = mapsName.length;
-    renderPage(pageNumber);
-    MapDraw();
+    mapN = mapsName.length; // Количество доступных карт
+    renderPage(pageNumber); // Отображаем новую страницу
+    MapDraw(); // показываем карту деревень
 }
 
+// Функция для перетасовки и отрисовки карт
 function MapDraw() {
-    playSound(clickSound);
-    mapN++;
+    playSound(clickSound); // Воспроизводим звук клика
+    mapN++;  // Увеличиваем номер карты
     if (mapN >= mapsName.length) {
+        // Если карты закончились, перетасовываем и начинаем сначала
         shuffleArray(mapsName);
         mapN = 0;
     }
-    mapNumber(mapN);
+    mapNumber(mapN);  // Отображаем новую карту
 }
 
+// Функция для перетасовки массива карт
 function shuffleArray(array) {
-    // Генерируем случайное количество раз от 1 до 7
+    // Генерируем случайное количество повторений от 4 до 12
     var timesToRepeat = Math.floor(Math.random() * 9) + 4;
-    // Повторяем операции заданное количество раз
+    // Перетасовываем массив указанное количество раз
     for (var i = 0; i < timesToRepeat; i++) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [array[i], array[j]] = [array[j], array[i]]; // Меняем местами элементы
         }
     }
     return array;
 }
 
+// Функция для переключения видимости элемента
 function toggleVisibility(selector) {
     var element = document.querySelector(selector);
     if (element) {
@@ -856,6 +867,7 @@ function toggleVisibility(selector) {
     }
 }
 
+// Функция для отображения названий деревень на карте
 function mapNumber(n) {
     // Получаем ссылку на контейнер, содержащий элементы для заполнения
     var nameContainer = document.querySelector('.name-container');
@@ -868,37 +880,41 @@ function mapNumber(n) {
         var element = nameContainer.querySelector(selector);
         // Заполняем значение элемента значением из массива mapsName
         if (element) {
-            element.textContent = value;
+            element.textContent = value; // Задаём название деревень
         }
     });
 }
 
+// Функция для переключения настроек игры (количество игроков)
 function SetUp() {
     playSound(clickSound);
     var textSetup = document.getElementById("setup");
 
     if (setUp === 0) {
         setUp = 1;
-        textSetup.innerText = "5-8 PLAYERS";
+        textSetup.innerText = "5-8 PLAYERS"; // Если 5-8 игроков
     } else {
         setUp = 0;
-        textSetup.innerText = "2-4 PLAYERS";
+        textSetup.innerText = "2-4 PLAYERS"; // Если 2-4 игрока
     }
 }
 
+// Функция для начала 1 раунда
 function Round1() {
     playSound(clickSound);
-    pageNumber++;
+    pageNumber++; // Переход на следующую страницу
     renderPage(pageNumber);
-    modifyElements(setUp);
-    NextRound();
+    modifyElements(setUp); // Изменение элементов в зависимости от настроек игры
+    NextRound(); // Начало следующего раунда
 }
 
+// Функция для обновления номера текущего раунда
 function RoundNumber() {
     var roundNumber = document.querySelector('.round-number');
-    roundNumber.innerText = 'ROUND ' + roundN;
+    roundNumber.innerText = 'ROUND ' + roundN;  // Устанавливаем номер раунда
 }
 
+// Функция для изменения изображений карт
 function changeImage(element) {
     playSound(clickSound);
     // Получаем текущий путь к изображению
@@ -907,15 +923,16 @@ function changeImage(element) {
     // Проверяем, содержит ли путь к изображению подстроку 'x'
     if (currentSrc.includes('x')) {
         // Если содержит, заменяем 'x' на пустую строку
-        element.src = currentSrc.replace('x', '');
+        element.src = currentSrc.replace('x', '');  // Убираем 'x', если есть
     } else {
         // Если не содержит, добавляем 'x' перед расширением файла
         var lastIndex = currentSrc.lastIndexOf('.');
-        var newSrc = currentSrc.slice(0, lastIndex) + 'x' + currentSrc.slice(lastIndex);
+        var newSrc = currentSrc.slice(0, lastIndex) + 'x' + currentSrc.slice(lastIndex); // Добавляем 'x' перед расширением
         element.src = newSrc;
     }
 }
 
+// Функция для модификации элементов на основе настроек игры
 function modifyElements(setUp) {
     var bonus1 = document.querySelector('.imgBonus.n1');
     var bonus2 = document.querySelector('.imgBonus.n2');
@@ -923,6 +940,7 @@ function modifyElements(setUp) {
     bonus1.src = 'img/' + startBonus[0] + '.png';
     bonus2.src = 'img/' + startBonus[1] + '.png';
 
+        // Если установлено, что игра на 2-4 игроков
     // Проверяем, равна ли переменная setUp 0
     if (setUp === 0) {
         // Получаем ссылку на элемент с классом "bonus-lv"
@@ -930,7 +948,7 @@ function modifyElements(setUp) {
         // Если такой элемент существует
         if (bonusLvElement) {
             // Добавляем стиль "justify-content: center;"
-            bonusLvElement.style.justifyContent = 'center';
+            bonusLvElement.style.justifyContent = 'center'; // Центрируем бонусы
         }
 
         // Получаем ссылку на элемент с классом "imgBonus n2"
@@ -938,25 +956,26 @@ function modifyElements(setUp) {
         // Если такой элемент существует
         if (imgBonusN2Element) {
             // Удаляем элемент
-            imgBonusN2Element.remove();
+            imgBonusN2Element.remove();  // Удаляем второй бонус
         }
     }
     if (setUp === 0) {
         var dopBonuses = document.querySelectorAll('.bonus.dop');
         dopBonuses.forEach(function (bonus) {
-            bonus.style.display = 'none';
+            bonus.style.display = 'none'; // Скрываем дополнительные бонусы
         });
     }
 }
 
+// Функция для начала следующего раунда
 function NextRound() {
-    openCardNumber = 0;
-    roundN++;
-    RoundNumber();
-    countDeck();
-    deck = shuffleArray(deck);
+    openCardNumber = 0;   // Сбрасываем количество открытых карт
+    roundN++;  // Увеличиваем номер раунда
+    RoundNumber(); // Обновляем номер раунда на экране
+    countDeck();  // Подсчитываем оставшиеся карты
+    deck = shuffleArray(deck);  // Перетасовываем колоду
     if (roundN > 1) {
-        toggleVisibility('.deck');
+        toggleVisibility('.deck');   // Скрываем или показываем колоду
         toggleVisibility('.open-cards-container');
         toggleVisibility('.button-container.next-round');
     }
@@ -967,6 +986,7 @@ function Next() {
     OpenNextCards();
 }
 
+// Функция для отображения следующих карт
 function OpenNextCards() {
     var openCards = document.getElementById('open-cards')
     var openCard1 = document.querySelector('.open-card.n1'); // Получаем первый элемент с классом open-card и n1
@@ -1238,4 +1258,4 @@ function newGame() {
     renderPage(pageNumber);
 }
 
-newGame();
+newGame(); // Старт игры
