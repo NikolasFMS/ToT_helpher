@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="ico/favicon.ico" type="image/x-icon">
+
+     <!-- Предварительная загрузка  -->
+
+     <link rel="preload" href="css/styles.css" as="style">
+
+    <title>Trails of Tukana helper</title>
+</head>
+
+<body>
+
+    <!-- Основной контент страницы -->
+    <div class="app" >
+
+        <!-- Место, где будут динамически создаваться страницы -->
+        <div class="content" id="content">
+
+            <div class="page n1">
+                <div class="button-container start">
+                    <div class="button start" onclick="start()">START</div>
+                </div>
+            </div>
+
+            <div class="page n2">
+                <div class="button-container map">
+                    <div class="button button-map" onclick="map(0)">SMALL MAP</div>
+                    <div class="button button-map" onclick="map(1)">BIG MAP</div>
+                </div>
+            </div>
+
+            <div class="page n3">
+                <div class="button-container map">
+                    <div class="button button-shuffle" onclick="mapShuffle()">SHUFFLE</div>
+                </div>
+                <div class="img-container map">
+                    <img class="mapIMG" src="img/map.png">
+
+                    <div class="name-container name">
+                        <div class="txtImgMAP n1" style="top:12.5%; left: 48.3%">A</div>
+                        <div class="txtImgMAP n2" style="top:19%; left: 60.7%">A</div>
+                        <div class="txtImgMAP n3" style="top:34%; left: 68.5%">A</div>
+                        <div class="txtImgMAP n4" style="top:53%; left: 68.5%">A</div>
+                        <div class="txtImgMAP n5" style="top:68.5%; left: 60.7%">A</div>
+                        <div class="txtImgMAP n6" style="top:75%; left: 48%">A</div>
+                        <div class="txtImgMAP n7" style="top:68.5%; left: 35.5%">A</div>
+                        <div class="txtImgMAP n8" style="top:53%; left: 27.5%">A</div>
+                        <div class="txtImgMAP n9" style="top:34%; left: 27.5%">A</div>
+                        <div class="txtImgMAP n10" style="top:19%; left: 35.5%">A</div>
+                    </div>
+
+                </div>
+                <div class="button-container setup">
+                    <div class="text-container">
+                        <div class="txtMAP">SET-UP CARDS</div>
+                    </div>
+                    <div class="button button-setup" onclick="setUo()">2-4 PLAYERS</div>
+                </div>
+                <div class="button-container round1">
+                    <div class="button button-round1" onclick="setUo()">ROUND 1</div>
+                </div>
+                <div class="button-container exit">
+                    <div class="button exit" onclick="exit()">=</div>
+                </div>
+                <div class="overlay" id="overlay">
+                    <div class="popup" id="popup">
+                        <div class="h1" id="first">NEXT</div>
+                        <div class="h1" id="second">ROUND</div>
+                        <div class="popup-container">
+                            <div class="button action-button 1" id="button1" onclick="performAction(1)">ROUND 2</div>
+                            <div class="button action-button 1" id="button1" onclick="performAction(2)">BACK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page n4">
+                <div class="round-container">
+                    <div class="round-number">ROUND 1</div>
+                </div>
+                <div class="cards-container">
+                    <div class="last-cards-container">
+                        <img class="last-card n1" src="img/mountan.png">
+                        <div class="text-last">
+                            <span class="first-line">LAST</span>
+                            <span class="second-line">CARD</span>
+                        </div>
+                    </div>
+                    <div class="open-cards-container">
+                        <img class="open-card n1" src="img/desert.png">
+                        <img class="open-card n2" src="img/water.png">
+                    </div>
+                    <div class="last-cards-container">
+                        <img class="last-card n2" src="img/forest.png">
+                        <div class="text-last">
+                            <span class="first-line">LAST</span>
+                            <span class="second-line">CARD</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="down-container">
+                    <div class="down empty"></div>
+                    <div class="down deck-container">
+                        <div class="deck">
+                            <img class="imgDeck" src="img/logo.png">
+                            <div class="deck-info">
+                                <div class="bonus-lv">
+                                    <img class="imgBonus n1" src="img/bird.png">
+                                    <img class="imgBonus n2" src="img/dragon.png">
+                                </div>
+                                <div class="count-deck">
+                                    <div class="countCards">23</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down bonus-town">
+                        <div class="big-bonus-container">
+                            <div class="bonus-container n1">
+                                <div class="bonus base n1" onclick="galochka(1)">
+                                    <div class="kv n1">
+                                        <div class="galochka n1">✓</div>
+                                    </div>
+                                    <div class="textBonus">A—A 3</div>
+                                </div>
+                                <div class="bonus dop n1" onclick="galochka(11)">
+                                    <div class="kv n1">
+                                        <div class="galochka n1">✓</div>
+                                    </div>
+                                    <div class="textBonus">A—A 2</div>
+                                </div>
+                            </div>
+                            <div class="bonus-container n2">
+                                <div class="bonus base n2" onclick="galochka(2)">
+                                    <div class="kv n2">
+                                        <div class="galochka n2">✓</div>
+                                    </div>
+                                    <div class="textBonus">B—B 4</div>
+                                </div>
+                                <div class="bonus dop n2" onclick="galochka(12)">
+                                    <div class="kv n2">
+                                        <div class="galochka n2">✓</div>
+                                    </div>
+                                    <div class="textBonus">B—B 2</div>
+                                </div>
+                            </div>
+                            <div class="bonus-container n3">
+                                <div class="bonus base n3" onclick="galochka(3)">
+                                    <div class="kv n3">
+                                        <div class="galochka n3">✓</div>
+                                    </div>
+                                    <div class="textBonus">C—C 5</div>
+                                </div>
+                                <div class="bonus dop n3" onclick="galochka(13)">
+                                    <div class="kv n3">
+                                        <div class="galochka n3">✓</div>
+                                    </div>
+                                    <div class="textBonus">C—C 3</div>
+                                </div>
+                            </div>
+                            <div class="bonus-container n4">
+                                <div class="bonus base n4" onclick="galochka(4)">
+                                    <div class="kv n4">
+                                        <div class="galochka n4">✓</div>
+                                    </div>
+                                    <div class="textBonus">D—D 6</div>
+                                </div>
+                                <div class="bonus dop n4" onclick="galochka(14)">
+                                    <div class="kv n4">
+                                        <div class="galochka n4">✓</div>
+                                    </div>
+                                    <div class="textBonus">D—D 4</div>
+                                </div>
+                            </div>
+                            <div class="bonus-container n5">
+                                <div class="bonus base n5" onclick="galochka(5)">
+                                    <div class="kv n5">
+                                        <div class="galochka n5">✓</div>
+                                    </div>
+                                    <div class="textBonus">E—E 7</div>
+                                </div>
+                                <div class="bonus dop n5 " onclick="galochka(15)">
+                                    <div class="kv n5">
+                                        <div class="galochka n5">✓</div>
+                                    </div>
+                                    <div class="textBonus">E—E 5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-container next-round">
+                    <div class="button button-next-round" onclick="setUo()">NEXT</div>
+                </div>
+                <div class="button-container exit">
+                    <div class="button exit" onclick="exit()">=</div>
+                </div>
+                <div class="overlay" id="overlay">
+                    <div class="popup" id="popup">
+                        <div class="h1" id="first">NEXT</div>
+                        <div class="h1" id="second">ROUND</div>
+                        <div class="popup-container">
+                            <div class="button action-button 1" id="button1" onclick="performAction(1)">ROUND 2</div>
+                            <div class="button action-button 1" id="button1" onclick="performAction(2)">BACK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Прелоадер -->
+        <div class="preloader_malc" id="preloader_malc">
+            <div>Loading...</div>
+        </div>
+
+        <script src="scripts/script.js"></script>
+</body>
+
+</html>

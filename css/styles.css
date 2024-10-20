@@ -1,0 +1,450 @@
+body {
+    overflow: hidden;
+    height: 100dvh;
+    width: 100dvw;
+    margin: 0;
+    user-select: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    background-color: #024253;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    background-color: #2e94b9;
+    max-width: 530px;
+}
+
+
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.page {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.page.n3 {
+    margin-top: -10vh;
+}
+
+/* Адаптация для телефонов */
+@media (max-width: 900px) {
+ .page {
+ background-color: #024253;
+ }
+}
+
+.img-container.map {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    width: 50vh;
+    max-width: 500px;
+}
+
+.mapIMG {
+    z-index: 0;
+    height: auto;
+    width: 100%;
+}
+
+.txtImgMAP {
+    z-index: 1;
+    font-size: 3.2vh;
+    position: absolute;
+    text-shadow: 0 0 5px #000;
+}
+
+.txtMAP {
+    margin-bottom: 0.5vh;
+}
+
+.round-container {
+    position: absolute;
+    top: 4vh;
+}
+
+.round-number {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    font-size: 3vh;
+    background-color: #70aec4;
+    border-radius: 0.4vh;
+    width: 20vh;
+    height: 5vh;
+}
+
+.cards-container {
+    height: 30vh;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.open-cards-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.last-cards-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0 0.1vh 0;
+}
+
+.down-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-around;
+    height: 15vh;
+    width: 55vh;
+}
+
+.open-card {
+    height: 27vh;
+    width: 16vh;
+}
+
+.last-card {
+    height: 13.5vh;
+    border: 1px solid #094453;
+    border-radius: 0.7vh;
+}
+
+.text-last {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2vh;
+    margin-top: 0.5vh;
+}
+
+.first-line {
+    white-space: nowrap;
+}
+
+.second-line {
+    white-space: normal;
+}
+
+.imgDeck {
+    height: 38vh;
+    width: 22vh;
+}
+
+.deck {
+    margin-top: -1vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.deck-info {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.big-bonus-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5vh;
+}
+
+.count-deck {
+    background-color: #99bccc;
+    opacity: 0.5;
+    border-radius: 0.5vh;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.down {
+    width: 30%;
+}
+
+.big-bonus-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    margin-left: 1.3vh;
+}
+
+.bonus-container {
+
+    position: relative;
+}
+
+.bonus {
+    position: relative;
+    display: flex;
+    background-color: #7294a4;
+    border-radius: 0.4vh;
+    width: 11vh;
+    height: 3.5vh;
+    box-shadow: 0 1px 1px #444;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1vh;
+}
+
+.bonus:active {
+    background-color: #444;
+}
+
+.kv {
+    margin-left: 1vh;
+    width: 2.2vh;
+    height: 2.2vh;
+    background-color: #eee;
+    border-radius: 0.5vh;
+    box-shadow: 0 0.2vh 0 #444;
+}
+
+.galochka {
+    font-size: 2vh;
+    color: #000;
+}
+
+.bonus.base {
+    z-index: 1;
+}
+
+.bonus.dop {
+    position: absolute;
+    z-index: 0;
+    margin-top: -3.5vh;
+    background-color: #6d7579;
+    width: 13vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    transition: margin-top 0.5s ease;
+}
+
+.bonus-lv {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    margin-top: -5vh;
+}
+
+.imgBonus {
+    background-color: #e8e2e5;
+    border: 0.3vh solid #755355;
+    height: 5vh;
+    width: 5vh;
+    border-radius: 0.5vh;
+}
+
+.imgBonus:active {
+    background-color: #9b9b9b;
+    border: 0.3vh solid #9b9b9b;
+}
+
+.textBonus {
+    font-size: 2vh;
+}
+
+.bonus-x-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    margin-top: -2.2vh;
+   width: 100%;
+}
+
+.bonus-x {
+    color: #444444;
+    font-size: 8vh;
+    text-align: center;
+}
+
+.count-card {
+    font-size: 2.5vh;
+}
+
+.button {
+    font-size: 2.5vh;
+    border-radius: 0.7vh;
+    text-transform: uppercase;
+    background-color: #7294a4;
+    box-shadow: 0 1px 1px #094453;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 250px;
+}
+
+.button:active {
+    background-color: #6d7579;
+}
+
+.button-container {
+    height: 19vh;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.button {
+    width: 25vh;
+    height: 7vh;
+}
+
+.button.button-setup {
+    width: 22vh;
+}
+
+.button-container.map {
+    height: 20vh;
+}
+
+.button-container.shuffle {
+    height: 7vh;
+}
+
+.button-container.setup {
+    height: 8vh;
+}
+
+.button-container.round1,
+.button.next-round {
+    position: absolute;
+    bottom: 1.5vh;
+}
+
+.button-container.exit {
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    width: 5vh;
+    height: 5vh;
+}
+
+.button.exit {
+    background-color: #68a0b5;
+    height: 100%;
+    width: 100%;
+}
+
+.button.exit:active {
+    background-color: #6fa1b3;
+}
+
+#overlay {
+    z-index: 9999;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#popup {
+    background: #094453;
+    padding: 2vh 5vh 4vh;
+    border-radius: 1vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #c2c2c2;
+}
+
+.popup-container {
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+}
+
+.action-button {
+    font-size: 2.5vh;
+    height: 6vh;
+    width: 17vh;
+}
+
+.action-button:active {
+    color: #094453;
+}
+
+#preloader_malc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #222;
+    z-index: 99;
+}
+
+#preloader_malc div {
+    background: #222;
+    width: 100%;
+    height: 100%;
+    font-family: "Ruda", sans-serif;
+    font-size: 2vh;
+    color: #ccc;
+    text-align: center;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    padding: 50vh 0;
+}
