@@ -38,8 +38,17 @@ const URLS_TO_CACHE = [
     'img/water.png'
 ];
 
-// Установка Service Worker и кэширование ресурсов
+// Инициализация IndexedDB
+const dbPromise = indexedDB.open('MyDatabase', 1);
 
+dbPromise.onupgradeneeded = (event) => {
+    const db = event.target.result;
+    if (!db.objectStoreNames.contains('resources')) {
+        db.createObjectStore('resources'); // Создание объекта для хранения ресурсов
+    }
+};
+
+// Установка Service Worker и кэширование ресурсов
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -47,17 +56,28 @@ self.addEventListener('install', (event) => {
                 console.log('Кэширование ресурсов');
                 return Promise.all(
                     URLS_TO_CACHE.map(url => {
-                        return cache.add(url).catch(error => {
-                            console.error(`Ошибка при кэшировании ресурса: ${url}`, error);
-                            throw error; // Прекращаем кэширование при ошибке
-                        });
+                        return cache.add(url)
+                            .then(() => {
+                                return saveToIndexedDB(url); // Сохранение в IndexedDB
+                            })
+                            .catch(error => {
+                                console.error(`Ошибка при кэшировании ресурса: ${url}`, error);
+                                throw error; // Прекращаем кэширование при ошибке
+                            });
                     })
                 );
             })
     );
 });
 
-
+// Функция для сохранения ресурса в IndexedDB
+function saveToIndexedDB(url) {
+    return dbPromise.then(db => {
+        const transaction = db.transaction('resources', 'readwrite');
+        const store = transaction.objectStore('resources');
+        store.put({ url: url, timestamp: Date.now() }); // Сохраняем URL с меткой времени
+    });
+}
 
 // Обработка запросов
 self.addEventListener('fetch', (event) => {
@@ -69,7 +89,14 @@ self.addEventListener('fetch', (event) => {
                     return response;
                 }
                 // Если нет, загружаем ресурс из сети
-                return fetch(event.request);
+                return fetch(event.request).then(networkResponse => {
+                    // Сохраняем загруженный ресурс в кэш
+                    return caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, networkResponse.clone());
+                        saveToIndexedDB(event.request.url); // Сохраняем в IndexedDB
+                        return networkResponse;
+                    });
+                });
             })
     );
 });
@@ -90,4 +117,3 @@ self.addEventListener('activate', (event) => {
         })
     );
 });
-
