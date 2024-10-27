@@ -39,7 +39,7 @@ const URLS_TO_CACHE = [
 ];
 
 // Инициализация IndexedDB
-const dbPromise = indexedDB.open('MyDatabase', 1);
+const dbPromise = indexedDB.open(CACHE_NAME, 1);
 
 dbPromise.onupgradeneeded = (event) => {
     const db = event.target.result;
