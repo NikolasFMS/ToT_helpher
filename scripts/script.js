@@ -823,18 +823,29 @@ function MapDraw() {
     mapNumber(mapN);  // Отображаем новую карту
 }
 
-// Функция для перетасовки массива карт
+// Функция Фишера-Йетса с многократным перемешиванием
 function shuffleArray(array) {
-    // Генерируем случайное количество повторений от 4 до 12
-    var timesToRepeat = Math.floor(Math.random() * 9) + 4;
-    // Перетасовываем массив указанное количество раз
-    for (var i = 0; i < timesToRepeat; i++) {
+    // Генерируем случайное число от 7 до 22 для количества перемешиваний
+    const times = ultraRandom(7, 22);
+
+    // Запускаем алгоритм Фишера-Йетса несколько раз
+    for (let t = 0; t < times; t++) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // Меняем местами элементы
+            [array[i], array[j]] = [array[j], array[i]];
         }
     }
     return array;
+}
+
+// Функция для генерации случайного числа с учётом времени
+function ultraRandom(min, max) {
+    const now = Date.now();
+    const timeBasedRandom = (now % 1000) / 1000;
+    const randomValue = (Math.random() + Math.random() * timeBasedRandom - Math.random() * timeBasedRandom);
+
+    // Гарантируем, что результат находится в пределах min и max
+    return Math.floor((Math.abs(randomValue) % 1) * (max - min + 1)) + min;
 }
 
 // Функция для переключения видимости элемента
