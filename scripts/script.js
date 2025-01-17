@@ -907,7 +907,6 @@ function RoundNumber() {
 // Функция для изменения изображений карт
 function changeImage(element) {
     playSound(clickSound);
-    toggleVisibility(element);
     // Получаем текущий путь к изображению
     var currentSrc = element.src;
 
@@ -921,7 +920,6 @@ function changeImage(element) {
         var newSrc = currentSrc.slice(0, lastIndex) + 'x' + currentSrc.slice(lastIndex); // Добавляем 'x' перед расширением
         element.src = newSrc;
     }
-    toggleVisibility(element);
 }
 
 // Функция для модификации элементов на основе настроек игры
@@ -998,8 +996,8 @@ function OpenNextCards() {
         toggleVisibility('.big-bonus-container');
         openPopup('next');
     } else {
-        toggleVisibility(openCard1);
-        toggleVisibility(openCard1);
+        toggleVisibility('.open-card.n1');
+        toggleVisibility('.open-card.n2');
         openCardNumber += 2;
         bonusVilage.style.display = 'flex';
         deckCards.style.display = 'flex';
@@ -1012,8 +1010,8 @@ function OpenNextCards() {
             lastCard1.src = 'img/' + deck[openCardNumber - 4] + '.png';
             lastCard2.src = 'img/' + deck[openCardNumber - 3] + '.png';
         }
-        toggleVisibility(openCard1);
-        toggleVisibility(openCard1);
+        toggleVisibility('.open-card.n1');
+        toggleVisibility('.open-card.n2');
         countDeck();
     }
 }
