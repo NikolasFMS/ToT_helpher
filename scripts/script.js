@@ -973,7 +973,11 @@ function NextRound() {
 
 function Next() {
     playSound(clickSound);
+    toggleVisibility('.open-card.n1');
+    toggleVisibility('.open-card.n2');
     OpenNextCards();
+    toggleVisibility('.open-card.n1');
+    toggleVisibility('.open-card.n2');
 }
 
 // Функция для отображения следующих карт
@@ -996,8 +1000,6 @@ function OpenNextCards() {
         toggleVisibility('.big-bonus-container');
         openPopup('next');
     } else {
-        toggleVisibility('.open-card.n1');
-        toggleVisibility('.open-card.n2');
         openCardNumber += 2;
         bonusVilage.style.display = 'flex';
         deckCards.style.display = 'flex';
@@ -1010,8 +1012,6 @@ function OpenNextCards() {
             lastCard1.src = 'img/' + deck[openCardNumber - 4] + '.png';
             lastCard2.src = 'img/' + deck[openCardNumber - 3] + '.png';
         }
-        toggleVisibility('.open-card.n1');
-        toggleVisibility('.open-card.n2');
         countDeck();
     }
 }
