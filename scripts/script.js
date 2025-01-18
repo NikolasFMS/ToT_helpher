@@ -1247,6 +1247,6 @@ function newGame() {
     setUp = 0;
     roundN = 0;
     openCardNumber = 1;
-    shuffleArray(startBonus);
+    startBonus = shuffleArray(startBonus);
     renderPage(pageNumber);
 }
