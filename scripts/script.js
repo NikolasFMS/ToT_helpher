@@ -959,6 +959,7 @@ function modifyElements(setUp) {
 
 // Функция для начала следующего раунда
 function NextRound() {
+    playSound(clickSound); // Воспроизводим звук клика
     openCardNumber = 0;   // Сбрасываем количество открытых карт
     roundN++;  // Увеличиваем номер раунда
     RoundNumber(); // Обновляем номер раунда на экране
@@ -1241,6 +1242,7 @@ function performAction(buttonId) {
 
 // Новая игра
 function newGame() {
+    playSound(clickSound); // Воспроизводим звук клика
     pageNumber = 1;
     mapSetting = 0;
     mapN = 0;
